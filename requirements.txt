@@ -1,0 +1,5 @@
+Flask
+edge-tts
+pydub
+sounddevice
+numpy

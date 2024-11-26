@@ -79,7 +79,7 @@
       <textarea name="text" id="text" rows="4" placeholder="Type your text here..." required></textarea>
 
       <button type="submit" name="convert">Convert to Speech</button>
-      <button type="button" id="preview-example">Preview Example</button>
+      <button type="button" id="preview-example">Preview Voice</button>
       <button type="button" id="donate-now" onclick="window.location.href='https://www.google.com'">Donate Now</button>
     </form>
     <footer>
@@ -108,7 +108,7 @@
     // Trigger the change event to populate voices on initial load
     document.getElementById('language').dispatchEvent(new Event('change'));
 
-    // Handle the Preview Example button click
+    // Handle the Preview Voice button click
     document.getElementById('preview-example').addEventListener('click', function () {
       var language = document.getElementById('language').value;
       var voice = document.getElementById('voice').value;

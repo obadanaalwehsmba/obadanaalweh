@@ -3,4 +3,3 @@ edge-tts
 pydub
 sounddevice
 numpy
-python-template

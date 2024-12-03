@@ -3,4 +3,4 @@ edge-tts
 pydub
 sounddevice
 numpy
-ffmpeg
+ffmpeg-python

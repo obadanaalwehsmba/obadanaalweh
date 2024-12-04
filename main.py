@@ -5,7 +5,6 @@ import os
 from pydub import AudioSegment
 import tempfile
 import asyncio
-import os
 
 app = Flask(__name__)
 
@@ -233,6 +232,4 @@ def generate_audio_route():
     return send_file(wav_stream, mimetype="audio/wav")  # إرجاع الصوت للتشغيل في المتصفح
 
 if __name__ == "__main__":
-    # استخدام البورت الذي يتم تحديده من البيئة
-    port = os.getenv("PORT", 5000)  # استخدام البورت من المتغير أو 5000 إذا لم يكن موجود
-    app.run(debug=True, host="0.0.0.0", port=int(port))
+    app.run(debug=True, host="0.0.0.0", port=80)

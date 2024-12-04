@@ -147,7 +147,7 @@
     document.getElementById('preview-example').addEventListener('click', function () {
       var language = document.getElementById('language').value;
       var voice = document.getElementById('voice').value;
-      var audio = new Audio(/generate-audio?language=${encodeURIComponent(language)}&voice=${encodeURIComponent(voice)});
+      var audio = new Audio(`/generate-audio?language=${encodeURIComponent(language)}&voice=${encodeURIComponent(voice)}`);
       audio.play();
     });
   </script>

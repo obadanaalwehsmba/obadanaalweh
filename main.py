@@ -5,7 +5,6 @@ import os
 from pydub import AudioSegment
 import tempfile
 import asyncio
-import os
 
 app = Flask(__name__)
 
@@ -19,79 +18,6 @@ async def get_voice_list_async():
         language_map = {
             "en": "English",
             "ar": "Arabic",
-            "es": "Spanish",
-            "fr": "French",
-            "de": "German",
-            "zh": "Chinese",
-            "ja": "Japanese",
-            "ko": "Korean",
-            "ru": "Russian",
-            "pt": "Portuguese",
-            "it": "Italian",
-            "tr": "Turkish",
-            "pl": "Polish",
-            "nl": "Dutch",
-            "sv": "Swedish",
-            "fi": "Finnish",
-            "no": "Norwegian",
-            "da": "Danish",
-            "hi": "Hindi",
-            "id": "Indonesian",
-            "vi": "Vietnamese",
-            "th": "Thai",
-            "ms": "Malay",
-            "fa": "Persian",
-            "uk": "Ukrainian",
-            "ro": "Romanian",
-            "sr": "Serbian",
-            "bg": "Bulgarian",
-            "az": "Azerbaijani",
-            "my": "Burmese",
-            "ca": "Catalan",
-            "sq": "Albanian",
-            "af": "Afrikaans",
-            "bs": "Bosnian",
-            "am": "Amharic",
-            "bn": "Bengali",
-            "gl": "Galician",
-            "gu": "Gujarati",
-            "he": "Hebrew",
-            "hu": "Hungarian",
-            "ka": "Georgian",
-            "ml": "Malayalam",
-            "mr": "Marathi",
-            "mt": "Maltese",
-            "mk": "Macedonian",
-            "ps": "Pashto",
-            "si": "Sinhala",
-            "sk": "Slovak",
-            "sl": "Slovene",
-            "so": "Somali",
-            "su": "Sundanese",
-            "sw": "Swahili",
-            "ta": "Tamil",
-            "te": "Telugu",
-            "zu": "Zulu",
-            "cy": "Welsh",
-            "kk": "Kazakh",
-            "lo": "Lao",
-            "lv": "Latvian",
-            "hr": "Croatian",
-            "el": "Greek",
-            "is": "Icelandic",
-            "cs": "Czech",
-            "et": "Estonian",
-            "fil": "Filipino",
-            "ga": "Irish",
-            "lt": "Lithuanian",
-            "iu": "Inuktitut",
-            "mn": "Mongolian",
-            "ne": "Nepali",
-            "nb": "Norwegian Bokmål",
-            "ur": "Urdu",
-            "uz": "Uzbek",
-            "jv": "Javanese",
-            "kn": "Kannada",
             "km": "Khmer",
             # أضف المزيد من اللغات هنا عند الحاجة
         }
@@ -130,21 +56,34 @@ def generate_audio(text, voice):
 # ترجمات الجملة لجميع اللغات
 translations = {
     "ar": "إذا أعجبتك الخدمة قم بالتبرع لدعم استمرار الموقع",
-    "en": "If you like the service, please donate to support the site",
-    "es": "Si te gusta el servicio, por favor dona para apoyar el sitio",
+    "kn": "ನೀವು ಸೇವೆಯನ್ನು ಇಷ್ಟಪಡಿಸಿದರೆ, ದಯವಿಟ್ಟು ತಾಣವನ್ನು ಬೆಂಬಲಿಸಲು ದಾನ ಮಾಡಿ",
+    "km": "ប្រសិនបើអ្នកចូលចិត្តសេវាកម្មនេះសូមឧបត្ថម្ភដើម្បីគាំទ្រទំព័រនេះ"
     # أضف المزيد من الترجمات هنا
 }
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+def home():
+    voices_data = asyncio.run(get_voice_list_async())
     if request.method == "POST":
         text = request.form["text"]
         voice = request.form["voice"]
-        audio_stream = generate_audio(text, voice)
-        return send_file(audio_stream, mimetype="audio/wav", as_attachment=True, download_name="output.wav")
-    
-    return render_template("index.html", translations=translations)
+        wav_stream = generate_audio(text, voice)
+        if wav_stream is None:
+            return "Error generating audio."
+        return send_file(wav_stream, mimetype="audio/wav", as_attachment=True, download_name="output.wav")
+
+    return render_template("index.html", voices_data=voices_data)
+
+@app.route("/generate-audio", methods=["GET"])
+def generate_audio_route():
+    language = request.args.get("language")
+    voice = request.args.get("voice")
+    text = translations.get(language, translations["en"])  # النص المترجم
+
+    wav_stream = generate_audio(text, voice)
+    if wav_stream is None:
+        return "Error generating audio."
+    return send_file(wav_stream, mimetype="audio/wav")  # إرجاع الصوت للتشغيل في المتصفح
 
 if __name__ == "__main__":
-    port = os.getenv("PORT", 5000)  # هذا البورت يمكن تعديله إذا كنت تستخدم منصة مثل Railway
-    app.run(host="0.0.0.0", port=int(port))
+    app.run(debug=True, host="0.0.0.0")  # يعتمد على بورت Railway فقط

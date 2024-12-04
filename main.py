@@ -5,7 +5,6 @@ import os
 from pydub import AudioSegment
 import tempfile
 import asyncio
-import os
 
 app = Flask(__name__)
 
@@ -168,34 +167,69 @@ translations = {
     "gl": "Se che gusta o servizo, doe para apoiar o sitio",
     "gu": "જો તમને સેવા ગમે છે, તો સાઇટને ટેકો આપવા માટે દાન કરો",
     "he": "אם אתה אוהב את השירות, אנא תרום כדי לתמוך באתר",
-    "hu": "Ha tetszik a szolgáltatás, kérjük, adományozzon a webhely támogatásához",
-    "ka": "თუ თქვენ მოგწონთ ეს სერვისი, გთხოვთ შეიტანოთ ნაჩუქარი საიტზე",
-    "ml": "നിങ്ങൾക്ക് ഈ സേവനം ഇഷ്ടമാണെങ്കിൽ, ദയവായി സൈറ്റിനെ പിന്തുണയ്‌ക്കാൻ ദാനമൊതുക്കുക",
-    "mr": "तुम्हाला सेवा आवडत असल्यास, कृपया साइटला मदत करण्यासाठी दान करा",
-    "mt": "Jekk jogħġbok, donawha biex tappoġġja s-sit",
+    "hu": "Ha tetszik a szolgáltatás, kérjük, adományozzon a webhely támogatására",
+    "ka": "თუ მოგწონთ სერვისი, გთხოვთ, დაეხმაროთ საიტის მხარდაჭერას",
+    "ml": "സേവനം നിങ്ങള്‍ക്ക് ഇഷ്ടമായെങ്കില്‍, വെബ്‌സൈറ്റിനെ പിന്തുണയ്ക്കാന്‍ ദാനം ചെയ്യുക",
+    "mr": "सेवा आवडल्यास, साइट समर्थनासाठी देणगी द्या",
+    "mt": "Jekk jogħġbok, jekk tixtieq, agħmel donazzjoni biex tappoġġja s-sit",
+    "mk": "Доколку ви се допаѓа услугата, ве молиме донирајте за да го поддржите сајтот",
+    "ps": "که تاسو له خدمت څخه خوښ ياست، نو مهرباني وکړئ د ځای ملاتړ لپاره مرسته وکړئ",
+    "si": "ඔබට සේවාව පැහැදිලි නම්, කරුණාකර පිටුවට සහාය විය යුතුයි",
+    "sk": "Ak sa vám služba páči, prosím, darujte na podporu stránky",
+    "sl": "Če vam je storitev všeč, prosimo, darujte za podporo spletnemu mestu",
+    "so": "Haddii aad adeegga ka hesho, fadlan ku tabaruc si aad u taageerto goobta",
+    "su": "Lamun anjeun resep kana jasa, punten nyumbangkeun pikeun ngadukung situs",
+    "sw": "Ikiwa unapenda huduma, tafadhali changia kusaidia tovuti",
+    "ta": "உங்களுக்கு சேவை பிடித்திருந்தால், தயவுசெய்து தளத்தைக் காக்க நன்கொடை வழங்கவும்",
+    "te": "మీకు సేవ నచ్చితే, దయచేసి వెబ్‌సైట్‌ను మద్దతు ఇవ్వడానికి విరాళం ఇవ్వండి",
+    "zu": "Uma uthanda insiza, sicela unikele ukusekela isiza",
+    "cy": "Os ydych chi'n hoffi'r gwasanaeth, rhoddwch i gefnogi'r safle",
+    "kk": "Қызмет ұнаса, сайтты қолдауға қайырымдылық жасаңыз",
+    "lo": "ຖ້າທ່ານມັກບໍລິການຂອງເວັບ, ກະລຸນາບໍລິຈາກເພື່ອສະໜັບສະໜູນເວັບໄຊ",
+    "lv": "Ja jums patīk pakalpojums, lūdzu, ziedojiet, lai atbalstītu vietni",
+    "hr": "Ako vam se sviđa usluga, molimo vas da donirate za podršku stranici",
+    "cs": "Pokud se vám služba líbí, přispějte na podporu webu",
+    "et": "Kui teile teenus meeldib, annetage saidi toetuseks",
+    "fil": "Kung gusto mo ang serbisyo, mangyaring mag-donate upang suportahan ang site",
+    "ga": "Má thaitníonn an tseirbhís leat, déan síntiús chun tacú leis an suíomh",
+    "lt": "Jei jums patinka paslauga, paaukoti svetainės palaikymui",
+    "iu": "ᐅᑕᒪᑦ ᐃᒪᓂᐅᔭᖅᑎᑦ ᐊᒻᒪᓗᒃ ᐊᑐᖏᓐᓂᒃ ᓇᖏᓐᓂᒃ ᐊᓯᒪᓕᒃ ᓄᓇᓯᐅᒃ",
+    "mn": "Хэрэв танд энэ үйлчилгээ таалагдвал, сайт руу хандив өргөнө үү",
+    "ne": "यदि तपाईंलाई सेवा मन पर्छ भने, साइटलाई समर्थन गर्न दान गर्नुहोस्",
+    "nb": "Hvis du liker tjenesten, vennligst doner for å støtte nettstedet",
+    "ur": "اگر آپ کو یہ خدمت پسند آئی تو سائٹ کی حمایت کے لئے براہ کرم چندہ دیں",
+    "uz": "Agar xizmat sizga yoqsa, saytni qo‘llab-quvvatlash uchun xayriya qiling",
+    "jv": "Yen sampeyan seneng karo layanan iki, mangga nyumbang kanggo ndhukung situs iki",
+    "el": "Αν σας αρέσει η υπηρεσία, παρακαλώ δωρεά για να υποστηρίξετε την ιστοσελίδα",
+    "is": "Ef þér líkar þjónustan, vinsamlegast doneraðu til að styðja síðuna",
+    "kn": "ನೀವು ಸೇವೆಯನ್ನು ಇಷ್ಟಪಡಿಸಿದರೆ, ದಯವಿಟ್ಟು ತಾಣವನ್ನು ಬೆಂಬಲಿಸಲು ದಾನ ಮಾಡಿ",
+    "km": "ប្រសិនបើអ្នកចូលចិត្តសេវាកម្មនេះសូមឧបត្ថម្ភដើម្បីគាំទ្រទំព័រនេះ"
+    # أضف المزيد من الترجمات هنا
 }
 
-# العرض للقائمة الرئيسية
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route("/", methods=["GET", "POST"])
+def home():
+    voices_data = asyncio.run(get_voice_list_async())
+    if request.method == "POST":
+        text = request.form["text"]
+        voice = request.form["voice"]
+        wav_stream = generate_audio(text, voice)
+        if wav_stream is None:
+            return "Error generating audio."
+        return send_file(wav_stream, mimetype="audio/wav", as_attachment=True, download_name="output.wav")
 
-# عرض نتائج التحويل
-@app.route('/convert', methods=['POST'])
-def convert_text_to_speech():
-    text = request.form.get('text')
-    voice = request.form.get('voice')
+    return render_template("index.html", voices_data=voices_data)
 
-    if not text:
-        return "Error: No text provided!", 400
+@app.route("/generate-audio", methods=["GET"])
+def generate_audio_route():
+    language = request.args.get("language")
+    voice = request.args.get("voice")
+    text = translations.get(language, translations["en"])  # النص المترجم
 
-    audio = generate_audio(text, voice)
-    if audio:
-        return send_file(audio, as_attachment=True, download_name="converted_audio.wav", mimetype="audio/wav")
-    else:
-        return "Error: Failed to generate audio!", 500
+    wav_stream = generate_audio(text, voice)
+    if wav_stream is None:
+        return "Error generating audio."
+    return send_file(wav_stream, mimetype="audio/wav")  # إرجاع الصوت للتشغيل في المتصفح
 
 if __name__ == "__main__":
-    # استخدام البورت من المتغيرات البيئية الخاصة بـ Railway
-    port = os.environ.get("PORT", 5000)
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True, host="0.0.0.0", port=80)

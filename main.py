@@ -5,7 +5,6 @@ import os
 from pydub import AudioSegment
 import tempfile
 import asyncio
-import os
 
 app = Flask(__name__)
 
@@ -64,7 +63,9 @@ translations = {
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    # تأكد من جلب قائمة الأصوات بطريقة صحيحة
     voices_data = asyncio.run(get_voice_list_async())
+    
     if request.method == "POST":
         text = request.form["text"]
         voice = request.form["voice"]

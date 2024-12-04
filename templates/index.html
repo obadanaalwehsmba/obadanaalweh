@@ -5,16 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Text to Speech Service</title>
   <style>
+    * {
+      box-sizing: border-box; /* This will prevent padding and border from affecting the width/height */
+      margin: 0;
+      padding: 0;
+    }
     body {
       font-family: 'Arial', sans-serif;
       background: linear-gradient(135deg, #74ebd5, #acb6e5);
-      margin: 0;
-      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       color: #333;
+      padding: 20px; /* Adding padding to the body */
     }
     .container {
       background-color: #fff;
@@ -24,10 +28,19 @@
       width: 100%;
       max-width: 500px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 350px;
     }
     h1 {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: #4a90e2;
+    }
+    .note {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
     select, textarea, button {
       width: 100%;
@@ -48,6 +61,7 @@
       border: none;
       cursor: pointer;
       font-weight: bold;
+      padding: 10px;
     }
     button:hover {
       background-color: #357ABD;
@@ -56,12 +70,33 @@
       margin-top: 1rem;
       font-size: 0.9rem;
       color: #666;
+      margin-bottom: 0;
+    }
+    footer p {
+      text-align: center;
+    }
+
+    /* Media Query for responsiveness */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      select, textarea, button {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+      }
+      .note {
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Text to Speech</h1>
+    <div class="note">
+      Note: The audio file will automatically download, do not reload the page, and ensure you allow the site to download files in your browser.
+    </div>
     <form method="POST" action="/">
       <label for="language">Select Language:</label>
       <select name="language" id="language" required>

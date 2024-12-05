@@ -2,3 +2,5 @@ User-agent: *
 Disallow: /admin/
 Disallow: /private/
 Allow: /
+
+Sitemap: https://freevoicegenerator.pro/sitemap.xml

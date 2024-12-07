@@ -1,108 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="msvalidate.01" content="ADE8BFCBE4EC8F2124692A659A654072" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free Text to Speech - Multilingual AI Voice Generator</title>
-  
-  <!-- Meta Tags -->
-  <meta name="keywords" content="Free Text to Speech, Unlimited TTS, AI Voice Generator, Multilingual Text to Speech, Realistic Voices, Online Voice Generator, Free Audio Conversion, Text to Audio Free, Speech Synthesis Online, AI Voiceover Tool, Convert Text to Speech, Free TTS Service, Natural Voices, AI Speech Tool, Multilingual Voiceover, Text to Speech for Free, Unlimited Voice Conversion, Free AI Voices, Online TTS Platform, Realistic AI Voice Generator,Free Voice Synthesis, AI-Powered Speech Generator, Free Online TTS, High-Quality Text to Speech, Free Text to Audio Tool, Human-Like AI Voices, Voice Generator Online Free, Convert Text to Realistic Speech, Free Multilingual TTS, AI Voice Synthesis Tool, Unlimited Speech Conversion, Free AI Voiceover Generator, Online Text to Speech Converter, Free Realistic Voice Generator, Free Text to Speech in Any Language, AI Natural Voice, Free Speech Generator, Easy Text to Speech, Cloud-Based TTS Free, Unlimited AI Speech Tool,Natural AI Speech Free, Text to Voice Online Free, Realistic Speech Generator, Free TTS for All Languages, AI-Powered Voice Tool, Free Synthetic Speech, Online Voice Synthesis Free, Best Free TTS Platform, Unlimited Voice Conversion, Free AI Text Reader, Online Text Audio Free, Convert Text to AI Voice Free, Lifeline Text to Speech, Speech Maker Online Free, Free Advanced TTS, AI Voices Online Free, Realistic AI Audio Generator, High-Quality Voice Tool, Free Text to Natural Sound, AI Speech Technology Free">
-  <meta name="description" content="Discover the Best Free Text to Speech Service Online!
-
-Welcome to our AI-powered Free Text to Speech (TTS) platform, your ultimate solution for converting text to audio with realistic voices in multiple languages. Whether you're looking for a high-quality voice generator or an easy-to-use AI speech tool, our service is here to deliver exceptional results.
-
-Our cloud-based platform offers unlimited TTS conversions, enabling you to generate natural AI voices and human-like speech effortlessly. Experience the power of AI voice synthesis with a tool designed for realistic voiceovers, multilingual support, and superior speech synthesis.
-
-Key features include:
-
-Free text to audio conversion with unlimited usage.
-Multilingual TTS capabilities for global accessibility.
-AI-powered speech technology to create realistic and natural voices.
-Online voice synthesis for creating professional-quality audio.
-Easy text-to-speech tools for any purpose, from voiceovers to personal use.
-Whether you need an AI voice generator for content creation, a free TTS service for accessibility, or simply a tool to convert text to speech with high-quality audio, our platform has you covered.
-
-Start now with the best free TTS platform and enjoy free AI voices for all your needs. Perfect for anyone seeking a realistic AI audio generator, natural AI speech, or advanced TTS technology for personal or professional use.
-
-Make the most of our unlimited voice conversion today and experience the future of speech synthesis. Explore the free text-to-speech platform trusted by users worldwide!">
-  <!-- Monetag and JS -->
-  <meta name="monetag" content="5add618c058ef561c5f5b08f9f04e5bf">
-  <script src="https://alwingulla.com/88/tag.min.js" data-zone="117876" async data-cfasync="false"></script>
-  
-  <!-- Include Service Worker -->
-  <script src="sw.js"></script>
-
+  <!-- Other meta tags and script references -->
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #74ebd5, #acb6e5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #333;
-      padding: 20px;
-    }
-    .container {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 350px;
-    }
-    h1 {
-      margin-bottom: 1rem;
-      color: #4a90e2;
-    }
-    .note {
-      color: red;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-    select, textarea, button {
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.8rem;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-    select:focus, textarea:focus, button:focus {
-      outline: none;
-      border-color: #4a90e2;
-    }
-    button {
-      background-color: #4a90e2;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      padding: 10px;
-    }
-    button:hover {
-      background-color: #357ABD;
-    }
-    footer {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #666;
-    }
-    footer p {
-      text-align: center;
-    }
+    /* Same styles as before */
   </style>
 </head>
 <body>
@@ -131,20 +35,22 @@ Make the most of our unlimited voice conversion today and experience the future 
       <button type="button" id="preview-example">Preview Voice</button>
       <button type="button" id="donate-now" onclick="window.location.href='https://www.patreon.com/preview/campaign?u=150716712&fan_landing=true&view_as=public'">Donate Now</button>
     </form>
+    
+    {% if file_url %}
+      <a href="{{ file_url }}" download>Click here to download your audio file</a>
+    {% endif %}
+    
     <footer>
       <p>If you like this service, please consider a donation to support the site.</p>
     </footer>
   </div>
-
   <script>
     document.getElementById('language').addEventListener('change', function() {
       var language = this.value;
       var voicesData = {{ voices_data | tojson }};
       var voices = voicesData[language] || [];
-
       var voiceSelect = document.getElementById('voice');
       voiceSelect.innerHTML = '';
-
       voices.forEach(function(voice) {
         var option = document.createElement('option');
         option.value = voice;

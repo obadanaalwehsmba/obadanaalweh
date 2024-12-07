@@ -51,23 +51,26 @@ def generate_audio(text, voice):
         
         # رفع الملف إلى transfer.sh
         upload_url = upload_to_transfer_sh(wav_stream)
-        if upload_url is None:
-            return "Error uploading to transfer.sh"
         return upload_url
     except Exception as e:
-        print(f"Error generating audio: {e}")
-        return "Error generating audio."
+        print(f"Error: {e}")
+        return None
 
 # دالة لرفع الملف إلى transfer.sh
 def upload_to_transfer_sh(file_stream):
-    url = "https://transfer.sh/"
+    url = "https://transfer.sh/output.wav"
     file_stream.seek(0)
-    response = requests.put(url + "output.wav", data=file_stream)
     
-    if response.status_code == 200:
-        return response.text  # الرابط المباشر للتحميل
-    else:
-        print(f"Failed to upload file. Status code: {response.status_code}")
+    try:
+        response = requests.put(url, data=file_stream)
+        
+        if response.status_code == 200:
+            return response.text  # الرابط المباشر للتحميل
+        else:
+            print(f"Error: Failed to upload file, status code {response.status_code}")
+            return None
+    except Exception as e:
+        print(f"Error: {e}")
         return None
 
 # ترجمات الجملة لجميع اللغات

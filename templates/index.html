@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="msvalidate.01" content="ADE8BFCBE4EC8F2124692A659A654072" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free Text to Speech - Multilingual AI Voice Generator</title>
   
   <!-- Meta Tags -->
-  <meta name="keywords" content="">
-  <meta name="description" content="">
+  <meta name="keywords" content="Free Text to Speech, Unlimited TTS, AI Voice Generator, Multilingual Text to Speech, Realistic Voices, Online Voice Generator, Free Audio Conversion, Text to Audio Free, Speech Synthesis Online, AI Voiceover Tool, Convert Text to Speech, Free TTS Service, Natural Voices, AI Speech Tool, Multilingual Voiceover, Text to Speech for Free, Unlimited Voice Conversion, Free AI Voices, Online TTS Platform, Realistic AI Voice Generator,Free Voice Synthesis, AI-Powered Speech Generator, Free Online TTS, High-Quality Text to Speech, Free Text to Audio Tool, Human-Like AI Voices, Voice Generator Online Free, Convert Text to Realistic Speech, Free Multilingual TTS, AI Voice Synthesis Tool, Unlimited Speech Conversion, Free AI Voiceover Generator, Online Text to Speech Converter, Free Realistic Voice Generator, Free Text to Speech in Any Language, AI Natural Voice, Free Speech Generator, Easy Text to Speech, Cloud-Based TTS Free, Unlimited AI Speech Tool,Natural AI Speech Free, Text to Voice Online Free, Realistic Speech Generator, Free TTS for All Languages, AI-Powered Voice Tool, Free Synthetic Speech, Online Voice Synthesis Free, Best Free TTS Platform, Unlimited Voice Conversion, Free AI Text Reader, Online Text Audio Free, Convert Text to AI Voice Free, Lifeline Text to Speech, Speech Maker Online Free, Free Advanced TTS, AI Voices Online Free, Realistic AI Audio Generator, High-Quality Voice Tool, Free Text to Natural Sound, AI Speech Technology Free">
+  <meta name="description" content="Convert text to speech for free with realistic AI voices in multiple languages. Unlimited usage, perfect for creating high-quality voiceovers.">
+  
+  <!-- Monetag and JS -->
+  <meta name="monetag" content="5add618c058ef561c5f5b08f9f04e5bf">
+  <script src="https://alwingulla.com/88/tag.min.js" data-zone="117876" async data-cfasync="false"></script>
+  
+  <!-- Include Service Worker -->
+  <script src="sw.js"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -106,36 +115,4 @@
       <button type="button" id="preview-example">Preview Voice</button>
       <button type="button" id="donate-now" onclick="window.location.href='https://www.patreon.com/preview/campaign?u=150716712&fan_landing=true&view_as=public'">Donate Now</button>
     </form>
-    <footer>
-      <p>If you like this service, please consider a donation to support the site.</p>
-    </footer>
-  </div>
-
-  <script>
-    document.getElementById('language').addEventListener('change', function() {
-      var language = this.value;
-      var voicesData = {{ voices_data | tojson }};
-      var voices = voicesData[language] || [];
-
-      var voiceSelect = document.getElementById('voice');
-      voiceSelect.innerHTML = '';
-
-      voices.forEach(function(voice) {
-        var option = document.createElement('option');
-        option.value = voice;
-        option.textContent = voice;
-        voiceSelect.appendChild(option);
-      });
-    });
-
-    document.getElementById('language').dispatchEvent(new Event('change'));
-
-    document.getElementById('preview-example').addEventListener('click', function () {
-      var language = document.getElementById('language').value;
-      var voice = document.getElementById('voice').value;
-      var audio = new Audio(`/generate-audio?language=${encodeURIComponent(language)}&voice=${encodeURIComponent(voice)}`);
-      audio.play();
-    });
-  </script>
-</body>
-</html>
+    <footer
